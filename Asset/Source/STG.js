@@ -116,7 +116,7 @@ var StgSystem = function(){
     	context = canvas.getContext("2d");
     	
     	mBackGroundImg = new Image();
-    	mBackGroundImg.src = /*"画像のパス"*/ + new Date().getTime();
+    	mBackGroundImg.src = "../Resource/1ce3a6b9.jpg?" + new Date().getTime();
 
     	mBackGroundImg.onLoad = function(){
     		context.drawImage( mBackGroundImg, 0, 0);
