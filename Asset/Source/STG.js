@@ -15,6 +15,7 @@
 
 'use strict';
 
+
 /**************************************************
 * class name : KeyCode							  *
 ***************************************************
@@ -32,6 +33,7 @@ var KeyCode  = function(){
 	this.keySpace   = 32;
 	this.keyEnter   = 13;
 }
+
 
 /**************************************************
 * class name : Player							  
@@ -91,6 +93,38 @@ var Enemy = function( x, y, width, height, type, src, onActive, onAttack, speed,
 	this.durability = durability;
 
 }
+var StgSystem = function(){
+	this.mScore;		
+	this.mGrazeScore;		
+    this.mBackGroundImg;
+    this.mTimer;
+    this.mIsGameOver;		
+    this.mIsGameStart;		
+    this.mStartBlink;		
+    this.mBlinkCnt;			
+    
+    function Initialize(){
+    	window.resizeTo(360,580);
+
+    	mIsGameOver  = false;
+    	mIsGameStart = false;
+    	mStartBlink  = false;
+    	mBlinkCnt    = 0;
+    	mScore = 0;
+
+    	canvas  = document.getElementById("canvas");
+    	context = canvas.getContext("2d");
+    	
+    	mBackGroundImg = new Image();
+    	mBackGroundImg.src = /*"画像のパス"*/ + new Date().getTime();
+
+    	mBackGroundImg.onLoad = function(){
+    		context.drawImage( mBackGroundImg, 0, 0);
+    	}
+    	Player = new Player(150,440,50,50);
+
+    }
+}
 
 /**************************************************
 * class name : keyEvent							  
@@ -109,12 +143,23 @@ var KeyEvent = function(){
 		var code = event.KeyCode;
 
 		switch(code){
-			case arrowLeft:
-
-				player.moveLeft = true;
-				event.preventDefault();
+			case KeyCode.arrowLp:
+				 Player.mEventMoveUp = true;
+				 event.preventDefault();
+				 break;
+			case KeyCode.arrowRight:
+				 Player.mEventMoveRight = true;
+				 event.preventDefault();
+				 break;
+			case KeyCode.arrowDown:
+				 Player.mEventMoveDown = true;
+				 event.preventDefault();
+				 break;
+			case KeyCode.arrowLeft:
+				 Player.mEventMoveLeft = true;
+				 event.preventDefault();
 				break;
-			case arrowRight:
+			case KeyCode.keySpace:
 
 
 		}
