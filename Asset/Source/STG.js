@@ -32,6 +32,7 @@ var KeyCode  = function(){
 	this.arrowDown  = 40;
 	this.keySpace   = 32;
 	this.keyEnter   = 13;
+	this.keyEscape  = 25; 
 }
 
 
@@ -93,6 +94,7 @@ var Enemy = function( x, y, width, height, type, src, onActive, onAttack, speed,
 	this.durability = durability;
 
 }
+
 var StgSystem = function(){
 	this.mScore;		
 	this.mGrazeScore;		
@@ -135,33 +137,83 @@ var StgSystem = function(){
 ***************************************************
 * 引数 : void			  
 ***************************************************/
-var KeyEvent = function(){
-	window.addEventListener('keyDown',KeyDownFunction,true);
-	window.addEventListener('keyUp'  ,KeyUpFunction  ,true);
+ var KeyEvent = function(){
+	 window.addEventListener('keyDown',KeyDownFunction,true);
+	 window.addEventListener('keyUp'  ,KeyUpFunction  ,true);
 
-	function KeyDownFunction(event){
-		var code = event.KeyCode;
+	 function KeyDownFunction(event){
+		 var code = event.KeyCode;
 
-		switch(code){
-			case KeyCode.arrowLp:
+		 switch(code){
+			 case KeyCode.arrowLp:
 				 Player.mEventMoveUp = true;
 				 event.preventDefault();
 				 break;
-			case KeyCode.arrowRight:
+			 case KeyCode.arrowRight:
 				 Player.mEventMoveRight = true;
 				 event.preventDefault();
 				 break;
-			case KeyCode.arrowDown:
+			 case KeyCode.arrowDown:
 				 Player.mEventMoveDown = true;
 				 event.preventDefault();
 				 break;
-			case KeyCode.arrowLeft:
+			 case KeyCode.arrowLeft:
 				 Player.mEventMoveLeft = true;
 				 event.preventDefault();
 				break;
-			case KeyCode.keySpace:
+		 	 case KeyCode.keySpace:
+				if (StgSystem.mIsGameStart = false) {
+					StgSystem.mIsGameStart = true;
+				}
+				event.preventDefault();
+				break;
+		 	 case KeyCode.keyEscape:
+				 StgSystem.mIsGameOver = true;
+				 event.preventDefault();
+				 break;
+	   	}
+	 }
 
+	 function KeyUpFunction(event) {
+         var code = event.keyCode;
 
-		}
-	}
-}
+         switch (code) {
+             case Keycode.arrowLeft:
+                 // ←キー
+                 Player.mEventMoveLeft = false;
+                 event.preventDefault();
+                 break;
+             case Keycode.arrowRight:
+                // →キー
+                 Player.mEventMoveRight = false;
+                 event.preventDefault();
+                 break;
+             case KeyCode.arrowUp:
+                 // ↑キー
+                 Player.mEventMoveUp = false;
+                 event.preventDefault();
+                 break;
+             case Keycode.arrowDown:
+                 // ↓キー
+                 Player.mEventMoveDown = false;
+                 event.preventDefault();
+                 break;
+
+             case Keycode.keySpace:
+                 if( StgSystem.mIsGameStart ){
+                  StgSystem.mIsGameStart = false;
+	             }
+              event.preventDefault();
+              break;
+
+             case Keycode.keyEscape:
+                 if( StgSystem.mIsGameOver ){
+                 }
+                 event.preventDefault();
+                 break;
+
+             default:
+                 event.preventDefault();
+                 break;
+      }
+  }
